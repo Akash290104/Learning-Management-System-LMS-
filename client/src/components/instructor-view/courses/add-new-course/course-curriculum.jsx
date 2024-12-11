@@ -77,7 +77,7 @@ const CourseCurriculum = () => {
 
         if (res?.success) {
           let copyCourseCurriculumFormData = [...courseCurriculumFormData];
-
+          
           copyCourseCurriculumFormData[currentIndex] = {
             ...copyCourseCurriculumFormData[currentIndex],
             videoUrl: res?.result?.url,

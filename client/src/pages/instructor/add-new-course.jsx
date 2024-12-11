@@ -81,12 +81,16 @@ const AddNewCoursePage = () => {
     };
 
     console.log("Final course form data", courseFinalFormData);
+    const updateData = {
+      ...courseLandingFormData,
+      curriculum: courseCurriculumFormData
+    }
 
     const result =
       currentEditedCourseId !== null
         ? await updateCourseByIdService(
             currentEditedCourseId,
-            courseFinalFormData
+            updateData
           )
         : await addNewCourseService(courseFinalFormData);
 

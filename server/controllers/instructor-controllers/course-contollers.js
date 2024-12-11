@@ -34,7 +34,11 @@ const addNewCourse = async (req, res) => {
 
 const getAllCourses = async (req, res) => {
   try {
-    const courseList = await Course.find({});
+    const { instructorId } = req.params;
+
+    console.log("instructorId", instructorId);
+
+    const courseList = await Course.find({ instructorId });
 
     return res.status(200).json({
       success: true,
@@ -55,7 +59,7 @@ const getCourseDetailsById = async (req, res) => {
   try {
     const { id } = req.params;
     const courseDetails = await Course.findById(id);
-    
+
     if (!courseDetails) {
       console.log("Error fetching course details");
       return res.status(404).json({

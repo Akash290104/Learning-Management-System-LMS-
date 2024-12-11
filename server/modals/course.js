@@ -22,6 +22,7 @@ const CourseSchema = new mongoose.Schema(
     objectives: String,
     welcomeMessage: String,
     image: String,
+    imagePublicId: String,
     students: [
       {
         studentId: String,

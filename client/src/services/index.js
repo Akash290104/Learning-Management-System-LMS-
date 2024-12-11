@@ -2,8 +2,7 @@ import axiosInstance from "@/api/axiosInstance";
 
 export const registerService = async (formData) => {
   const res = await axiosInstance.post("/auth/register", {
-    ...formData,
-    role: "user",
+    ...formData
   });
   return res.data;
 };
@@ -36,8 +35,8 @@ export const mediaDeleteService = async (id) => {
   return res.data;
 };
 
-export const fetchInstructorCourseListService = async () => {
-  const res = await axiosInstance.get("/instructor/course/get");
+export const fetchInstructorCourseListService = async (instructorId) => {
+  const res = await axiosInstance.get(`/instructor/course/get/${instructorId}`);
   return res.data;
 };
 

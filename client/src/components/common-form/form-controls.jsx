@@ -13,11 +13,12 @@ import { Textarea } from "../ui/textarea";
 
 const FormControls = ({ formControls = [], formData, setFormData }) => {
   const renderComponentByType = (getControlItem) => {
+    
     if (!getControlItem) {
       console.log("Missing getControl Item", getControlItem);
       return null;
     }
-
+  
     let element = null;
 
     const currentControlItemValue = formData[getControlItem.name] || "";
@@ -109,6 +110,8 @@ const FormControls = ({ formControls = [], formData, setFormData }) => {
     }
     return element;
   };
+
+  
 
   return (
     <div className="flex flex-col gap-3">

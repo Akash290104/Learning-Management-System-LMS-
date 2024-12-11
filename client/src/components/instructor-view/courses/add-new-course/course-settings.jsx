@@ -31,8 +31,11 @@ const CourseSettings = () => {
           imageFormData,
           setMediaUploadProgressPercentage
         );
+        console.log(res);
 
         if (res?.success) {
+          console.log("image uplaod repsonse", res);
+
           setCourseLandingFormData({
             ...courseLandingFormData,
             image: res?.result?.url,
@@ -47,6 +50,8 @@ const CourseSettings = () => {
   };
 
   const handleReplaceImage = async () => {
+    console.log(courseLandingFormData);
+
     const imagePublicId = courseLandingFormData.imagePublicId;
 
     if (!imagePublicId) {
