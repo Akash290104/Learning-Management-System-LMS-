@@ -307,7 +307,13 @@ const StudentCourseProgress = () => {
                         )?.viewed ? (
                           <Check className="h-4 w-4 text-green-500" />
                         ) : (
-                          <Play className="h-4 w-4" />
+                          <Play
+                            className="h-4 w-4"
+                            onClick={() => {
+                              console.log(item);
+                              setCurrentLecture(item)
+                            }}
+                          />
                         )}
                         <span>{item?.title}</span>
                       </div>

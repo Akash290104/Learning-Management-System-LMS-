@@ -14,6 +14,9 @@ import React, { useState } from "react";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const AuthPage = () => {
   const navigate = useNavigate();
 
@@ -55,10 +58,10 @@ const AuthPage = () => {
 
   console.log("sign in data", signInFormData);
   console.log("sign up data", signUpFormData);
-  
 
   return (
     <div className="flex flex-col min-h-screen">
+      <ToastContainer position="top-right" autoClose={3000} />
       <header className="px-4 lg:px-6 h-14 flex items-center border-b">
         <div
           onClick={handleNavigate}

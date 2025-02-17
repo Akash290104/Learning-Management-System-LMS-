@@ -3,6 +3,9 @@ import { initalSignInFormData, initalSignUpFormData } from "@/config";
 import { checkAuthService, loginService, registerService } from "@/services";
 import { createContext, useEffect, useState } from "react";
 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export const AuthContext = createContext(null);
 
 export default function AuthProvider({ children }) {
@@ -17,6 +20,13 @@ export default function AuthProvider({ children }) {
     try {
       const data = await registerService(signUpFormData);
       console.log(data);
+      
+      if (data.success) {
+        toast.success("Registration successful! Kindly login with your email and password.");
+      } else {
+        toast.error("Registration failed. Please try again.");
+      }
+
     } catch (error) {
       console.log("Error in registering user", error);
     }

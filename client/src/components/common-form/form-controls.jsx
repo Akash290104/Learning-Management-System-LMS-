@@ -18,7 +18,8 @@ const FormControls = ({ formControls = [], formData, setFormData }) => {
       console.log("Missing getControl Item", getControlItem);
       return null;
     }
-  
+    
+    
     let element = null;
 
     const currentControlItemValue = formData[getControlItem.name] || "";

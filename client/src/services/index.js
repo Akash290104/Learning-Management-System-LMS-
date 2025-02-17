@@ -25,8 +25,7 @@ export const mediaUploadService = async (formData, onProgressCallBack) => {
       );
       onProgressCallBack(percentCompleted);
     },
-  });
-
+  });  
   return res.data;
 };
 
