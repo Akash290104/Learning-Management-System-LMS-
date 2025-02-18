@@ -20,13 +20,14 @@ export default function AuthProvider({ children }) {
     try {
       const data = await registerService(signUpFormData);
       console.log(data);
-      
+
       if (data.success) {
-        toast.success("Registration successful! Kindly login with your email and password.");
+        toast.success(
+          "Registration successful! Kindly login with your email and password."
+        );
       } else {
         toast.error("Registration failed. Please try again.");
       }
-
     } catch (error) {
       console.log("Error in registering user", error);
     }
