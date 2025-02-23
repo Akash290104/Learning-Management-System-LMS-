@@ -23,14 +23,19 @@ const createOrder = async (req, res) => {
       coursePricing,
     } = req.body;
 
+    const baseUrl =
+      process.env.NODE_ENV === "production"
+        ? "https://learning-management-system-60zfpf6mc-akashs-projects-6f1d4f45.vercel.app"
+        : "http://localhost:5173";
+
     const create_payment_json = {
       intent: "sale",
       payer: {
         payment_method: "paypal",
       },
       redirect_urls: {
-        return_url: "http://localhost:5173/payment-return",
-        cancel_url: "http://localhost:5173/cancel-payment",
+        return_url: `${baseUrl}/payment-return`,
+        cancel_url: `${baseUrl}/cancel-payment`,
       },
       transactions: [
         {
@@ -58,7 +63,6 @@ const createOrder = async (req, res) => {
       if (error) {
         console.log("Error creating paypal order", error);
         console.log("PayPal validation error details:", error.response.details);
-
 
         res.status(500).json({
           success: false,
@@ -92,7 +96,7 @@ const createOrder = async (req, res) => {
         console.log("Payment order created successfully");
         console.log("approveUrl", approveUrl);
 
-       return res.status(201).json({
+        return res.status(201).json({
           success: true,
           message: "Payment order created successfully",
           result: {
