@@ -1,88 +1,102 @@
 import { Route, Routes } from "react-router-dom";
-import AuthPage from "./pages/auth";
-import RouteGuard from "./components/route-guard";
-import { useContext } from "react";
-import InstructorDashboardPage from "./pages/instructor";
-import StudentViewCommonLayout from "./components/student-view/common-layout";
-import StudentHomePage from "./pages/student/home";
+import { useContext, lazy, Suspense } from "react";
 import { AuthContext } from "./context/auth-context";
+import RouteGuard from "./components/route-guard";
+import StudentViewCommonLayout from "./components/student-view/common-layout";
 import NotFoundPage from "./pages/not-found page";
-import AddNewCourse from "./pages/instructor/add-new-course";
-import AddNewCoursePage from "./pages/instructor/add-new-course";
-import StudentViewCoursesPage from "./pages/student/courses";
-import StudentViewCourseDetailsPage from "./pages/student/course-details";
-import PaypalPaymentReturnPage from "./pages/student/payment-return";
-import StudentCoursesPage from "./pages/student/student-courses";
-import StudentCourseProgress from "./pages/student/course-progress";
+
+// Spinner Component
+import { ClipLoader } from "react-spinners";
+import StudentHomePage from "./pages/student/home";
+
+// Lazy Load Heavy Components
+const AuthPage = lazy(() => import("./pages/auth"));
+const InstructorDashboardPage = lazy(() => import("./pages/instructor"));
+const AddNewCoursePage = lazy(() =>
+  import("./pages/instructor/add-new-course")
+);
+const StudentViewCoursesPage = lazy(() => import("./pages/student/courses"));
+const StudentViewCourseDetailsPage = lazy(() =>
+  import("./pages/student/course-details")
+);
+const PaypalPaymentReturnPage = lazy(() =>
+  import("./pages/student/payment-return")
+);
+const StudentCoursesPage = lazy(() =>
+  import("./pages/student/student-courses")
+);
+const StudentCourseProgress = lazy(() =>
+  import("./pages/student/course-progress")
+);
 
 function App() {
   const { auth } = useContext(AuthContext);
 
   return (
-    <Routes>
-      <Route
-        path="/auth"
-        element={
-          <RouteGuard
-            element={<AuthPage />}
-            authenticated={auth?.authenticated}
-            user={auth?.user}
-          />
-        }
-      />
-      <Route
-        path="/instructor"
-        element={
-          <RouteGuard
-            element={<InstructorDashboardPage />}
-            authenticated={auth?.authenticated}
-            user={auth?.user}
-          />
-        }
-      />
-      <Route
-        path="/instructor/create-new-course"
-        element={
-          <RouteGuard
-            element={<AddNewCoursePage />}
-            authenticated={auth?.authenticated}
-            user={auth?.user}
-          />
-        }
-      />
-      <Route
-        path="/instructor/edit-course/:courseId"
-        element={
-          <RouteGuard
-            element={<AddNewCoursePage />}
-            authenticated={auth?.authenticated}
-            user={auth?.user}
-          />
-        }
-      />
-      <Route
-        path="/"
-        element={
-          <RouteGuard
-            element={<StudentViewCommonLayout />}
-            authenticated={auth?.authenticated}
-            user={auth?.user}
-          />
-        }
-      >
-        <Route path="" element={<StudentHomePage />} />
-        <Route path="/home" element={<StudentHomePage />} />
-        <Route path="/courses" element={<StudentViewCoursesPage />} />
-        <Route path="/payment-return" element={<PaypalPaymentReturnPage />} />
-        <Route path="/student-courses" element={<StudentCoursesPage />} />
-        <Route path="/course-progress/:id" element={<StudentCourseProgress />} />
+    <Suspense
+      fallback={
+        <div className=" fixed inset-0 spinner-container flex items-center justify-center  ">
+          <ClipLoader color="#36D7B7" size={70} />
+        </div>
+      }
+    >
+      <Routes>
         <Route
-          path="/course/details/:id"
-          element={<StudentViewCourseDetailsPage />}
+          path="/auth"
+          element={
+            <RouteGuard
+              element={<AuthPage />}
+              authenticated={auth?.authenticated}
+              user={auth?.user}
+            />
+          }
         />
-      </Route>
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+        <Route
+          path="/instructor"
+          element={
+            <RouteGuard
+              element={<InstructorDashboardPage />}
+              authenticated={auth?.authenticated}
+              user={auth?.user}
+            />
+          }
+        />
+        <Route
+          path="/instructor/create-new-course"
+          element={
+            <RouteGuard
+              element={<AddNewCoursePage />}
+              authenticated={auth?.authenticated}
+              user={auth?.user}
+            />
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <RouteGuard
+              element={<StudentViewCommonLayout />}
+              authenticated={auth?.authenticated}
+              user={auth?.user}
+            />
+          }
+        >
+          <Route path="/courses" element={<StudentViewCoursesPage />} />
+          <Route path="/home" element={<StudentHomePage/>} />
+          <Route path="/payment-return" element={<PaypalPaymentReturnPage />} />
+          <Route path="/student-courses" element={<StudentCoursesPage />} />
+          <Route
+            path="/course-progress/:id"
+            element={<StudentCourseProgress />}
+          />
+          <Route
+            path="/course/details/:id"
+            element={<StudentViewCourseDetailsPage />}
+          />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Suspense>
   );
 }
 

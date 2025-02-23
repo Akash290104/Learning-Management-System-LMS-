@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import { InstructorContext } from "@/context/instructor-context";
 import { mediaDeleteService, mediaUploadService } from "@/services";
 import React, { useContext } from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const CourseSettings = () => {
   const {
@@ -93,7 +95,11 @@ const CourseSettings = () => {
                 Replace Image
               </Button>
             </div>
-            <img src={courseLandingFormData.image} />
+            <LazyLoadImage
+              src={courseLandingFormData.image}
+              alt="Course Thumbnail"
+              effect="blur"
+            />
           </div>
         ) : (
           <div className="flex flex-col gap-3">
