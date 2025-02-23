@@ -1,5 +1,6 @@
 const express = require("express");
 const multer = require("multer");
+const path = require("path");
 
 const {
   uploadMediaToCloudinary,
@@ -8,7 +9,8 @@ const {
 
 const router = express.Router();
 
-const upload = multer({ dest: "/uploads" });
+// Use /tmp/uploads instead of /uploads
+const upload = multer({ dest: path.join("/tmp", "uploads") });
 
 router.post("/upload", upload.single("file"), async (req, res) => {
   try {
@@ -20,10 +22,10 @@ router.post("/upload", upload.single("file"), async (req, res) => {
       result,
     });
   } catch (error) {
-    console.log("Error uploading via media route", error);
+    console.error("Error uploading via media route", error);
     return res
       .status(500)
-      .json({ sucess: false, message: "Error uploading via media route" });
+      .json({ success: false, message: "Error uploading via media route" });
   }
 });
 
@@ -31,10 +33,10 @@ router.delete("/delete/:id", async (req, res) => {
   try {
     const id = req.params.id;
     if (!id) {
-      console.log("Asset id required for deletion");
+      console.log("Asset ID required for deletion");
       return res
         .status(400)
-        .json({ message: "Asset id required for deletion" });
+        .json({ message: "Asset ID required for deletion" });
     }
 
     await deleteMediaFromCloudinary(id);
@@ -46,10 +48,10 @@ router.delete("/delete/:id", async (req, res) => {
       message: "File deleted via media route",
     });
   } catch (error) {
-    console.log("Error deleting via media route", error);
+    console.error("Error deleting via media route", error);
     return res
       .status(500)
-      .json({ sucess: false, message: "Error deleting via media route" });
+      .json({ success: false, message: "Error deleting via media route" });
   }
 });
 
@@ -69,10 +71,10 @@ router.post("/bulk-upload", upload.array("files", 10), async (req, res) => {
       result: results,
     });
   } catch (error) {
-    console.log("Error bulk uploading files", error);
+    console.error("Error bulk uploading files", error);
     return res
       .status(500)
-      .json({ sucess: false, message: "Error bulk uploading files" });
+      .json({ success: false, message: "Error bulk uploading files" });
   }
 });
 
