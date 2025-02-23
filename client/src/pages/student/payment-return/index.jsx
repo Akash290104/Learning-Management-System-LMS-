@@ -10,6 +10,8 @@ const PaypalPaymentReturnPage = () => {
   const paymentId = params.get("paymentId");
   const payerId = params.get("PayerID");
 
+  console.log("payment step 1");
+
   useEffect(() => {
     if (payerId && paymentId) {
       const capturePayment = async () => {
