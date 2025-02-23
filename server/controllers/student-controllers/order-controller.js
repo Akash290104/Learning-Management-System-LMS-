@@ -25,7 +25,7 @@ const createOrder = async (req, res) => {
 
     const baseUrl =
       process.env.NODE_ENV === "production"
-        ? "https://learning-management-system-60zfpf6mc-akashs-projects-6f1d4f45.vercel.app"
+        ? "https://learning-management-system-lms-gray.vercel.app"
         : "http://localhost:5173";
 
     const create_payment_json = {
