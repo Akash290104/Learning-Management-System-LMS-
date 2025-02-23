@@ -8,6 +8,9 @@ import {
 } from "@/services";
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import { px } from "framer-motion";
 
 const StudentHomePage = () => {
   const navigate = useNavigate();
@@ -67,7 +70,7 @@ const StudentHomePage = () => {
           <p className="text-xl">Get started with Us</p>
         </div>
         <div className="lg:w-full mb-8 lg:mb-0 ">
-          <img
+          <LazyLoadImage
             src="https://raw.githubusercontent.com/sangammukherjee/MERN-LMS-2024/refs/heads/master/client/public/banner-img.png"
             alt=""
             width={600}
@@ -100,12 +103,15 @@ const StudentHomePage = () => {
                 onClick={() => handleCourseNavigate(courseItem?._id)}
                 className="border rounded-lg overflow-hidden shadow cursor-pointer"
               >
-                <img
+                <LazyLoadImage
                   src={courseItem.image}
                   width={300}
                   height={150}
                   className="w-full h-40 object-cover"
+                  effect="blur"
+                  threshold={100} // Loads 300px before appearing
                 />
+
                 <div className="p-4">
                   <h3 className="font-bold mb-2">{courseItem?.title}</h3>
                   <p className="text-sm text-gray-700 mb-2">

@@ -20,6 +20,7 @@ import { Label } from "@radix-ui/react-dropdown-menu";
 import { ArrowUpDownIcon } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 //This function and its useeffect shows how to chnage the URL according to key-value pairs of an object
 const createSearchParamsHelper = (filterParams) => {
@@ -212,10 +213,18 @@ const StudentViewCoursesPage = () => {
                 >
                   <CardContent className="flex gap-4 p-4">
                     <div className="w-48 h-32 flex-shrink-0">
-                      <img
+                      <LazyLoadImage
                         src={courseItem?.image}
                         className="w-full h-full object-cover"
+                        effect="blur"
+                        threshold={100} // Loads 300px before appearing
+                        width={192}
+                        height={128}
                       />
+                      {/* <img
+                        src={courseItem?.image}
+                        className="w-full h-full object-cover"
+                      /> */}
                     </div>
                     <div className="flex-1">
                       <CardTitle className="text-xl mb-2">
