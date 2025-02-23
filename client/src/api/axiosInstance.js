@@ -1,9 +1,8 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://learning-management-system-lms-q18f.onrender.com",
 });
-
 
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -11,8 +10,7 @@ axiosInstance.interceptors.request.use(
 
     if (acccessToken) {
       config.headers.Authorization = `Bearer ${acccessToken}`;
-    }
-    else {
+    } else {
       delete config.headers.Authorization;
     }
     return config;
