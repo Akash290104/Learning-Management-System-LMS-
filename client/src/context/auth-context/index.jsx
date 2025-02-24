@@ -26,10 +26,11 @@ export default function AuthProvider({ children }) {
           "Registration successful! Kindly login with your email and password."
         );
       } else {
-        toast.error("Registration failed. Please try again.");
+        toast.error(data.message);
       }
     } catch (error) {
       console.log("Error in registering user", error);
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -38,7 +39,7 @@ export default function AuthProvider({ children }) {
 
     try {
       const data = await loginService(signInFormData);
-      console.log(data);
+      console.log("login", data);
 
       if (data.success) {
         console.log("step 1", data.accessToken);
@@ -52,6 +53,7 @@ export default function AuthProvider({ children }) {
           user: data.user,
         });
       } else {
+        toast.error(data.message);
         setAuth({
           authenticated: false,
           user: null,
@@ -59,6 +61,7 @@ export default function AuthProvider({ children }) {
       }
     } catch (error) {
       console.log("Error logging in the user", error);
+      toast.error(error?.response?.data?.message);
     }
   };
 

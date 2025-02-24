@@ -38,15 +38,22 @@ const loginUser = async (req, res) => {
 
   if (!user) {
     console.log("Invalid userEmail");
-    res.status(400).json({ success: false, message: "Invalid userEmail" });
+    return res
+      .status(400)
+      .json({ success: false, message: "Invalid user email" });
   }
 
   const password = user.userPassword;
-  const isCorrectPassword = bcrypt.compare(userPassword, password);
+  console.log(password, userPassword);
+
+  const isCorrectPassword = await bcrypt.compare(userPassword, password);
+  console.log(isCorrectPassword);
 
   if (!isCorrectPassword) {
     console.log("Incorrect password");
-    res.status(400).json({ success: false, message: "Invalid password" });
+    return res
+      .status(400)
+      .json({ success: false, message: "Invalid password" });
   }
 
   const accessToken = jwt.sign(
@@ -63,7 +70,7 @@ const loginUser = async (req, res) => {
   );
 
   console.log("User logged in successfully");
-  res.status(200).json({
+  return res.status(200).json({
     success: true,
     message: "User logged in successfully",
     user,
