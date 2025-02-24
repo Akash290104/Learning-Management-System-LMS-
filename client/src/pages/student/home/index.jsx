@@ -6,7 +6,7 @@ import {
   checkCoursePurchaseInfoService,
   fetchStudentViewCourseListService,
 } from "@/services";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -31,6 +31,8 @@ const StudentHomePage = () => {
   };
 
   const handleCourseNavigate = async (currentCourseId) => {
+    console.log(currentCourseId);
+
     const response = await checkCoursePurchaseInfoService(
       currentCourseId,
       auth?.user?._id
@@ -100,7 +102,10 @@ const StudentHomePage = () => {
           {studentViewCoursesList && studentViewCoursesList.length > 0 ? (
             studentViewCoursesList.map((courseItem) => (
               <div
-                onClick={() => handleCourseNavigate(courseItem?._id)}
+                key={courseItem?._id}
+                onClick={() => {
+                  handleCourseNavigate(courseItem?._id);
+                }}
                 className="border rounded-lg overflow-hidden shadow cursor-pointer"
               >
                 <LazyLoadImage
