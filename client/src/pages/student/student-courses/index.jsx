@@ -3,21 +3,24 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { AuthContext } from "@/context/auth-context";
 import { StudentContext } from "@/context/student-context";
 import { fetchStudentBoughtCoursesService } from "@/services";
-import { clamp } from "framer-motion";
-import { Watch } from "lucide-react";
-import React, { useContext, useEffect } from "react";
+import {Watch } from "lucide-react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
+
 
 const StudentCoursesPage = () => {
   const { studentBoughtCoursesList, setStudentBoughtCoursesList } =
     useContext(StudentContext);
 
   const navigate = useNavigate();
-
   const { auth } = useContext(AuthContext);
+
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     const fetchStudentBoughtCourses = async () => {
+      setLoading(true); // Set loading before API call
       try {
         const response = await fetchStudentBoughtCoursesService(
           auth?.user?._id
@@ -27,17 +30,27 @@ const StudentCoursesPage = () => {
         if (response?.success) {
           setStudentBoughtCoursesList(response?.courses);
         }
-      } catch (error) {}
+      } catch (error) {
+        console.error("Error fetching courses", error);
+      } finally {
+        setLoading(false); // Stop loading after API call completes
+      }
     };
+
     fetchStudentBoughtCourses();
   }, []);
 
   return (
     <div className="p-4">
       <h1 className="text-3xl font-bold mb-8">My Courses</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 ">
-        {studentBoughtCoursesList && studentBoughtCoursesList.length > 0 ? (
-          studentBoughtCoursesList.map((course) => (
+
+      {loading ? (
+        <div className=" fixed inset-0 spinner-container flex items-center justify-center  ">
+          <ClipLoader color="#36D7B7" size={70} />
+        </div>
+      ) : studentBoughtCoursesList && studentBoughtCoursesList.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
+          {studentBoughtCoursesList.map((course) => (
             <Card key={course._id} className="flex flex-col ">
               <CardContent className="p-4 flex-grow">
                 <img
@@ -62,11 +75,11 @@ const StudentCoursesPage = () => {
                 </Button>
               </CardFooter>
             </Card>
-          ))
-        ) : (
-          <h1 className="text-3xl font-bold">No Courses found</h1>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <h1 className="text-3xl font-bold">No Courses found</h1>
+      )}
     </div>
   );
 };

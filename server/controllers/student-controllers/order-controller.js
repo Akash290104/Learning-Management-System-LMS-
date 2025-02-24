@@ -64,7 +64,7 @@ const createOrder = async (req, res) => {
         console.log("Error creating paypal order", error);
         console.log("PayPal validation error details:", error.response.details);
 
-        res.status(500).json({
+        return res.status(500).json({
           success: false,
           message: "Error creating paypal order",
         });
@@ -194,7 +194,7 @@ const capturePaymentAndFinalizeOrder = async (req, res) => {
     });
   } catch (error) {
     console.log(("Error capturing payment via order conrtollers", error));
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: "Error capturing payment via order conrtollers",
     });

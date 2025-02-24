@@ -12,7 +12,7 @@ router.post("/login", loginUser);
 router.get("/check-auth", authenticate, (req, res) => {
   const user = req.user;
   console.log("User authenticated!!!");
-  res
+  return res
     .status(200)
     .json({ success: true, message: "User authenticated!!!", user });
 });
