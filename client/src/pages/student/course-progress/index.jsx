@@ -174,7 +174,7 @@ const StudentCourseProgress = () => {
                 if (!response?.isPurchased) {
                   setLockedCourse(true);
                 } else {
-                  console.log("Updating studentcurrentprogress");
+                  console.log("Updating studentcurrentprogress", response);
 
                   setStudentCurrentCourseProgress({
                     courseDetails: response?.courseDetails,
@@ -194,16 +194,27 @@ const StudentCourseProgress = () => {
                 if (response?.progress?.length === 0) {
                   setCurrentLecture(response?.courseDetails?.curriculum[0]);
                 } else {
-                  // console.log("Logging");
-                  const lastIndexOfViewed = response?.progress?.reduceRight(
-                    (acc, obj, index) => {
-                      return acc === -1 && obj.viewed ? index : acc;
-                    },
-                    -1
-                  );
-                  setCurrentLecture(
+                  console.log("Logging");
+                  const lastIndexOfViewed =
+                    response?.courseDetails?.curriculum?.findLastIndex(
+                      (lecture) =>
+                        response?.progress?.some(
+                          (p) => p.lectureId === lecture._id && p.viewed
+                        )
+                    );
+                  console.log("lastIndexOfViewed)", lastIndexOfViewed);
+                  console.log(
+                    "next lecture)",
                     response?.courseDetails?.curriculum[lastIndexOfViewed + 1]
                   );
+
+                  if (
+                    lastIndexOfViewed + 1 <
+                    response?.courseDetails?.curriculum.length
+                  )
+                    setCurrentLecture(
+                      response?.courseDetails?.curriculum[lastIndexOfViewed + 1]
+                    );
                 }
               }
             };
@@ -311,7 +322,7 @@ const StudentCourseProgress = () => {
                             className="h-4 w-4"
                             onClick={() => {
                               console.log(item);
-                              setCurrentLecture(item)
+                              setCurrentLecture(item);
                             }}
                           />
                         )}

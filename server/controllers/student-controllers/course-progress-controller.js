@@ -26,13 +26,13 @@ const markCurrentLectureAsViewed = async (req, res) => {
       });
       await progress.save();
     } else {
-      const lecturesProgress = progress?.lecturesProgress?.find(
+      const lecturesProgressItem = progress?.lecturesProgress?.find(
         (item) => item.lectureId === lectureId
       );
 
-      if (lecturesProgress) {
-        (lecturesProgress.viewed = true),
-          (lecturesProgress.dateViewed = new Date());
+      if (lecturesProgressItem) {
+        (lecturesProgressItem.viewed = true),
+          (lecturesProgressItem.dateViewed = new Date());
       } else {
         progress.lecturesProgress.push({
           lectureId,

@@ -72,6 +72,16 @@ function App() {
           }
         />
         <Route
+          path="/instructor/edit-course/:courseId"
+          element={
+            <RouteGuard
+              element={<AddNewCoursePage />}
+              authenticated={auth?.authenticated}
+              user={auth?.user}
+            />
+          }
+        />
+        <Route
           path="/"
           element={
             <RouteGuard
@@ -82,7 +92,7 @@ function App() {
           }
         >
           <Route path="/courses" element={<StudentViewCoursesPage />} />
-          <Route path="/home" element={<StudentHomePage/>} />
+          <Route path="/home" element={<StudentHomePage />} />
           <Route path="/payment-return" element={<PaypalPaymentReturnPage />} />
           <Route path="/student-courses" element={<StudentCoursesPage />} />
           <Route
