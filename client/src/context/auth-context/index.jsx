@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 export const AuthContext = createContext(null);
 
 export default function AuthProvider({ children }) {
+  
   const [signInFormData, setSignInFormData] = useState(initalSignInFormData);
   const [signUpFormData, setSignUpFormData] = useState(initalSignUpFormData);
   const [auth, setAuth] = useState({ authenticated: false, user: null });
