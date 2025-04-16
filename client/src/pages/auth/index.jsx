@@ -13,6 +13,7 @@ import { GraduationCap } from "lucide-react";
 import React, { useState } from "react";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -33,6 +34,8 @@ const AuthPage = () => {
     setSignUpFormData,
     handleRegisterUser,
     handleloginUser,
+    loading,
+    setLoading,
   } = useContext(AuthContext);
 
   const handleTabChange = (value) => {
@@ -61,6 +64,11 @@ const AuthPage = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
+      {loading && (
+        <div className=" fixed inset-0 spinner-container flex items-center justify-center  ">
+          <ClipLoader color="#36D7B7" size={70} />
+        </div>
+      )}
       <ToastContainer position="top-right" autoClose={3000} />
       <header className="px-4 lg:px-6 h-14 flex items-center border-b">
         <div
