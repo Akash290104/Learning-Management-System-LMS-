@@ -17,7 +17,6 @@ export default function AuthProvider({ children }) {
 
   const handleRegisterUser = async (event) => {
     event.preventDefault();
-    setLoading(true);
     try {
       const data = await registerService(signUpFormData);
       console.log(data);
@@ -32,9 +31,6 @@ export default function AuthProvider({ children }) {
     } catch (error) {
       console.log("Error in registering user", error);
       toast.error(error?.response?.data?.message);
-    }
-    finally{
-      setLoading(false);
     }
   };
 
