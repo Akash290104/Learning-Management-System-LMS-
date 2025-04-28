@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseURL =
   process.env.NODE_ENV === "production"
-    ? import.meta.env.VITE_API_URL
+    ? "https://learning-management-system-lms-q18f.onrender.com"
     : "http://localhost:5000";
 
 const axiosInstance = axios.create({
