@@ -82,27 +82,28 @@ const VideoPlayer = ({ width = "100%", height = "100%", url, useProgressUpdate, 
   };
 
   const handleFullScreen = useCallback(() => {
-    if (!isFullScreen) {
-      if (playerContainerRef?.current?.requestFullscreen) {
-        playerContainerRef?.current?.requestFullscreen();
+    if (!isFullScreen) {//Then, it is sure to go full screen
+      if (playerContainerRef?.current?.requestFullscreen) { //Check if the browser supports requestFullscreen. 
+        playerContainerRef?.current?.requestFullscreen(); //This is called on the specific element you want to show in fullscreen. 
       }
     } else {
       if (document.exitFullscreen) {
-        document.exitFullscreen();
+        document.exitFullscreen(); //Fullscreen mode is controlled at the document level. So to exit, you must tell the browser: “exit fullscreen mode”, not “exit fullscreen of this element”.
       }
     }
   }, [isFullScreen]);
 
+  //This keeps track of the state "isFullScreen"
   useEffect(() => {
     const handleFullScreenChange = () => {
-      setIsFullScreen(document.fullscreenElement);
+      setIsFullScreen(document.fullscreenElement); //"document.fullscreenElement" gives null if no component is in Fullscreen, else gives that DOM element that is in fullscreen
     };
 
-    document.addEventListener("fullscreenchange", handleFullScreenChange);
+    document.addEventListener("fullscreenchange", handleFullScreenChange); //"fullscreenchange" is a built-in browser event. It is fired whenever an element takes fullscreen or exits. So the "handleFullScreenChange" is called whenever an entry or exit from fullscreen occurs.
 
     return () => {
       document.removeEventListener("fullscreenchange", handleFullScreenChange);
-    };
+    }; // This cleanup runs ONLY WHEN the component unmounts.
   }, []);
 
   useEffect(() => {
@@ -117,7 +118,9 @@ const VideoPlayer = ({ width = "100%", height = "100%", url, useProgressUpdate, 
    }
   }, [played])
 
-  const handleMouseMove = () => {
+
+ // "controlsTimeoutRef.current" stores the timer ID so that it is preserved across renders. It clears the previous timer, if any.
+   const handleMouseMove = () => {
     setShowControls(true);
     clearTimeout(controlsTimeoutRef.current);
     controlsTimeoutRef.current = setTimeout(() => setShowControls(false), 3000);
@@ -130,7 +133,7 @@ const VideoPlayer = ({ width = "100%", height = "100%", url, useProgressUpdate, 
     ${isFullScreen ? `w-screen h-screen` : ``}`}
       style={{ width, height }}
       onMouseMove={handleMouseMove}
-      onMouseLeave={() => setShowControls(false)}
+      onMouseLeave={() => setShowControls(false)} //This vanishes the controls in case pointer is moved out of the video  box 
     >
       <ReactPlayer
         ref={playerRef}
@@ -141,7 +144,7 @@ const VideoPlayer = ({ width = "100%", height = "100%", url, useProgressUpdate, 
         playing={playing}
         volume={volume}
         muted={muted}
-        onProgress={handleProgress}
+        onProgress={handleProgress} //onProgress is called every 0.5 s by default. So, it takes care of updating the state "played" , except in case of seeking. In that case, Slider takes care
       />
       {showControls && (
         <div
@@ -153,7 +156,7 @@ const VideoPlayer = ({ width = "100%", height = "100%", url, useProgressUpdate, 
             value={[played * 100]}
             max={100}
             step={0.1}
-            onValueChange={(value) => handleSeekChange(value[0] / 100)}
+            onValueChange={(value) => handleSeekChange(value[0] / 100)} //slider manages the value itself. Value is an array that has  the % of video played
             onValueCommit={handleSeekMouseUp}
             className="w-full mb-4"
           />

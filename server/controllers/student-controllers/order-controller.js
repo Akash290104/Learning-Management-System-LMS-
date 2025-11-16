@@ -23,6 +23,19 @@ const createOrder = async (req, res) => {
       coursePricing,
     } = req.body;
 
+    //Check for duplaicate order or multiple clicks
+    const existingOrder = await Order.findOne({
+      userId,
+      courseId
+    });
+
+    if (existingOrder) {
+      return res.status(200).json({
+        success: false,
+        message: "Order already exists for this course.",
+      });
+    }
+
     const baseUrl =
       process.env.NODE_ENV === "production"
         ? "https://learning-management-system-lms-gray.vercel.app"

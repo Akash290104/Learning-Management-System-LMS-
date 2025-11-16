@@ -79,8 +79,12 @@ const StudentViewCourseDetailsPage = () => {
         console.log("Redirecting to:", approveUrl);
         window.location.href = approveUrl;
       } else {
-        console.error("No approval URL found in the response.");
-        // Handle error (maybe show an error message to the user)
+        if(response.message === "Order already exists for this course."){
+        console.error("Duplicate order.")  
+        }else{
+
+          console.error("No approval URL found in the response.");
+        }
       }
     }
   };
@@ -124,6 +128,7 @@ const StudentViewCourseDetailsPage = () => {
               currentCourseDetailsId
             );
             if (response?.success) {
+              console.log("student course deets", response?.courseDetails)
               setStudentViewCourseDetails(response?.courseDetails);
             } else {
               setStudentViewCourseDetails(null);

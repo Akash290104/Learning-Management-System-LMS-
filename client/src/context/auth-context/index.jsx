@@ -2,6 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { initalSignInFormData, initalSignUpFormData } from "@/config";
 import { checkAuthService, loginService, registerService } from "@/services";
 import { createContext, useEffect, useState } from "react";
+import { ClipLoader } from "react-spinners";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -19,7 +20,7 @@ export default function AuthProvider({ children }) {
     event.preventDefault();
     try {
       const data = await registerService(signUpFormData);
-      console.log(data);
+      console.log("register data",data);
 
       if (data.success) {
         toast.success(
@@ -31,6 +32,8 @@ export default function AuthProvider({ children }) {
     } catch (error) {
       console.log("Error in registering user", error);
       toast.error(error?.response?.data?.message);
+    } finally {
+      setSignUpFormData(initalSignUpFormData);
     }
   };
 
@@ -61,10 +64,11 @@ export default function AuthProvider({ children }) {
         });
       }
     } catch (error) {
-      console.log("Error logging in the user", error);
       toast.error(error?.response?.data?.message);
-    }finally{
-      setLoading(false)
+      console.log("Error logging in the user", error);
+    } finally {
+      setLoading(false);
+      setSignInFormData(initalSignInFormData);
     }
   };
 
@@ -90,8 +94,8 @@ export default function AuthProvider({ children }) {
       if (
         error.response &&
         error.response.data &&
-        error.response.data.message &&
-        (error.response.data.message = "No token hence no authroization")
+        error.response.data.status &&
+        error.response.data.status === 401
       ) {
         setAuth({
           authenticated: false,
@@ -126,9 +130,17 @@ export default function AuthProvider({ children }) {
         handleloginUser,
         auth,
         resetCredentials,
+        loading,
       }}
     >
-      {loading ? <Skeleton /> : children}
+      {loading ? (
+        <div className=" fixed inset-0 spinner-container flex flex-col items-center justify-center  ">
+          <div className="text-xl">Loading</div>{" "}
+          <ClipLoader color="#36D7B7" size={70} />
+        </div>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 }

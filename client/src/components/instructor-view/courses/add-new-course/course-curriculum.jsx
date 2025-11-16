@@ -90,6 +90,9 @@ const CourseCurriculum = () => {
       } catch (error) {
         console.log("Error in video upload on course curriculum page", error);
       }
+      finally{
+        setMediaUploadProgress(false)
+      }
     } else {
       console.log("Selected video lecture empty on course curriculum page");
     }
@@ -162,9 +165,9 @@ const CourseCurriculum = () => {
     const bulkFormData = new FormData();
     selectedFiles.forEach((fileItem) => bulkFormData.append("files", fileItem));
 
-    try {
+    try{
+      
       setMediaUploadProgress(true);
-
       const response = await mediaBulkUploadService(
         bulkFormData,
         setMediaUploadProgressPercentage

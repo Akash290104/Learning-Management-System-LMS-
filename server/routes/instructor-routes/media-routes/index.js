@@ -6,6 +6,7 @@ const {
   uploadMediaToCloudinary,
   deleteMediaFromCloudinary,
 } = require("../../../helpers/cloudinary");
+const { performance } = require("perf_hooks");
 
 const router = express.Router();
 
@@ -14,7 +15,10 @@ const upload = multer({ dest: path.join("/tmp", "uploads") });
 
 router.post("/upload", upload.single("file"), async (req, res) => {
   try {
+    const start = performance.now()
     const result = await uploadMediaToCloudinary(req.file.path);
+    const end = performance.now(); // end time
+  console.log(`Single requests took ${(end - start).toFixed(2)} ms`);
     console.log("File uploaded successfully via upload media route");
     return res.status(200).json({
       success: true,
@@ -60,10 +64,13 @@ router.post("/bulk-upload", upload.array("files", 10), async (req, res) => {
     const uploadPromises = req.files.map((fileItem) =>
       uploadMediaToCloudinary(fileItem.path)
     );
-
+  const start = performance.now()
     const results = await Promise.all(uploadPromises);
 
     console.log("Bulk upload successful");
+
+ const end = performance.now(); // end time
+  console.log(`Parallel requests took ${(end - start).toFixed(2)} ms`);
 
     return res.status(200).json({
       success: true,

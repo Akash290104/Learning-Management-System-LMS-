@@ -8,6 +8,7 @@ import NotFoundPage from "./pages/not-found page";
 // Spinner Component
 import { ClipLoader } from "react-spinners";
 import StudentHomePage from "./pages/student/home";
+import { ToastContainer } from "react-toastify";
 
 // Lazy Load Heavy Components
 const AuthPage = lazy(() => import("./pages/auth"));
@@ -40,6 +41,7 @@ function App() {
         </div>
       }
     >
+      <ToastContainer/>
       <Routes>
         <Route
           path="/auth"
