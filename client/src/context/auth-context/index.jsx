@@ -135,7 +135,6 @@ export default function AuthProvider({ children }) {
     >
       {loading ? (
         <div className=" fixed inset-0 spinner-container flex flex-col items-center justify-center  ">
-          <div className="text-xl">Loading</div>{" "}
           <ClipLoader color="#36D7B7" size={70} />
         </div>
       ) : (
