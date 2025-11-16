@@ -63,11 +63,11 @@ const StudentViewCourseDetailsPage = () => {
       coursePricing: studentViewCourseDetails?.pricing,
     };
 
-    console.log("paymentPayload", paymentPayload);
+    // console.log("paymentPayload", paymentPayload);
 
     const response = await createPaymentService(paymentPayload);
 
-    console.log(response);
+    // console.log(response);
     if (response?.success) {
       let approveUrl = response?.result?.approveUrl;
       if (approveUrl) {
@@ -76,7 +76,7 @@ const StudentViewCourseDetailsPage = () => {
           JSON.stringify(response?.result?.orderId)
         );
         setApprovalUrl(approveUrl);
-        console.log("Redirecting to:", approveUrl);
+        // console.log("Redirecting to:", approveUrl);
         window.location.href = approveUrl;
       } else {
         if(response.message === "Order already exists for this course."){
@@ -114,7 +114,7 @@ const StudentViewCourseDetailsPage = () => {
               auth?.user?._id
             );
 
-          console.log("coursePurchaseInfoResponse", coursePurchaseInfoResponse);
+          // console.log("coursePurchaseInfoResponse", coursePurchaseInfoResponse);
 
           if (
             coursePurchaseInfoResponse?.success &&
@@ -128,7 +128,7 @@ const StudentViewCourseDetailsPage = () => {
               currentCourseDetailsId
             );
             if (response?.success) {
-              console.log("student course deets", response?.courseDetails)
+              // console.log("student course deets", response?.courseDetails)
               setStudentViewCourseDetails(response?.courseDetails);
             } else {
               setStudentViewCourseDetails(null);

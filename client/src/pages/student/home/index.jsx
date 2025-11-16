@@ -20,7 +20,7 @@ const StudentHomePage = () => {
   const { auth } = useContext(AuthContext);
 
   const handleNavigateToCoursesPage = (courseCategoryId) => {
-    console.log(courseCategoryId);
+    // console.log(courseCategoryId);
     sessionStorage.removeItem("filters");
     const currentFilters = {
       category: [courseCategoryId],
@@ -31,7 +31,7 @@ const StudentHomePage = () => {
   };
 
   const handleCourseNavigate = async (currentCourseId) => {
-    console.log(currentCourseId);
+    // console.log(currentCourseId);
 
     const response = await checkCoursePurchaseInfoService(
       currentCourseId,

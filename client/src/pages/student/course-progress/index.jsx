@@ -56,7 +56,7 @@ const StudentCourseProgress = () => {
           auth?.user?._id,
           id
         );
-        console.log(response);
+        // console.log(response);
 
         if (response?.success) {
           if (!response?.isPurchased) {
@@ -104,7 +104,7 @@ const StudentCourseProgress = () => {
         auth?.user?._id,
         id
       );
-      console.log(response);
+      // console.log(response);
 
       if (response?.success) {
         if (!response?.isPurchased) {
@@ -158,7 +158,7 @@ const StudentCourseProgress = () => {
             currentLecture?._id
           );
 
-          console.log("update course response", response);
+          // console.log("update course response", response);
 
           if (response?.success) {
             console.log("success");
@@ -174,7 +174,7 @@ const StudentCourseProgress = () => {
                 if (!response?.isPurchased) {
                   setLockedCourse(true);
                 } else {
-                  console.log("Updating studentcurrentprogress", response);
+                  // console.log("Updating studentcurrentprogress", response);
 
                   setStudentCurrentCourseProgress({
                     courseDetails: response?.courseDetails,
@@ -183,7 +183,7 @@ const StudentCourseProgress = () => {
                 }
 
                 if (response?.isCompleted) {
-                  console.log("Completed");
+                  // console.log("Completed");
 
                   setCurrentLecture(response?.courseDetails?.curriculum[0]);
                   setShowCourseCompleteDialog(true);
@@ -202,7 +202,7 @@ const StudentCourseProgress = () => {
                           (p) => p.lectureId === lecture._id && p.viewed
                         )
                     );
-                  console.log("lastIndexOfViewed)", lastIndexOfViewed);
+                  // console.log("lastIndexOfViewed)", lastIndexOfViewed);
                   console.log(
                     "next lecture)",
                     response?.courseDetails?.curriculum[lastIndexOfViewed + 1]
@@ -235,7 +235,7 @@ const StudentCourseProgress = () => {
     }
   }, [showConfetti]);
 
-  console.log(studentCurrentCourseProgress);
+  // console.log(studentCurrentCourseProgress);
 
   return (
     <div className="flex flex-col h-screen bg-[#1c1d1f] text-white">

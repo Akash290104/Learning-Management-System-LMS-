@@ -20,7 +20,7 @@ export default function AuthProvider({ children }) {
     event.preventDefault();
     try {
       const data = await registerService(signUpFormData);
-      console.log("register data",data);
+      // console.log("register data",data);
 
       if (data.success) {
         toast.success(
@@ -43,14 +43,14 @@ export default function AuthProvider({ children }) {
 
     try {
       const data = await loginService(signInFormData);
-      console.log("login", data);
+      // console.log("login", data);
 
       if (data.success) {
-        console.log("step 1", data.accessToken);
+        // console.log("step 1", data.accessToken);
 
         sessionStorage.setItem("accessToken", JSON.stringify(data.accessToken));
 
-        console.log("step 2");
+        // console.log("step 2");
 
         setAuth({
           authenticated: true,
@@ -117,7 +117,7 @@ export default function AuthProvider({ children }) {
     });
   };
 
-  console.log("Auth user", auth);
+  // console.log("Auth user", auth);
 
   return (
     <AuthContext.Provider

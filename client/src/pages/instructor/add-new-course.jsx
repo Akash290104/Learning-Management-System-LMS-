@@ -41,7 +41,7 @@ const AddNewCoursePage = () => {
   const validateFormData = () => {
     for (const key in courseLandingFormData) {
       if (isEmpty(courseLandingFormData[key])) {
-        console.log("problem here", key);
+        // console.log("problem here", key);
         return false;
       }
     }
@@ -80,7 +80,7 @@ const AddNewCoursePage = () => {
       isPublished: true,
     };
 
-    console.log("Final course form data", courseFinalFormData);
+    // console.log("Final course form data", courseFinalFormData);
     const updateData = {
       ...courseLandingFormData,
       curriculum: courseCurriculumFormData
@@ -103,7 +103,7 @@ const AddNewCoursePage = () => {
   };
 
   const params = useParams();
-  console.log(params);
+  // console.log(params);
 
   useEffect(() => {
     if (params?.courseId) {
@@ -112,14 +112,14 @@ const AddNewCoursePage = () => {
   }, [params?.courseId]);
 
   useEffect(() => {
-    console.log("hi", currentEditedCourseId);
+    // console.log("hi", currentEditedCourseId);
 
     if (currentEditedCourseId !== null) {
       const fetchCourseDetails = async () => {
         const response = await fetchInstructorCourseDetailsService(
           currentEditedCourseId
         );
-        console.log(response?.courseDetails);
+        // console.log(response?.courseDetails);
 
         if (response?.success) {
           const setCourseFormData = Object.keys(courseLandingFormData).reduce(
@@ -132,7 +132,7 @@ const AddNewCoursePage = () => {
             {}
           );
 
-          console.log("setCourseFormData", setCourseFormData);
+          // console.log("setCourseFormData", setCourseFormData);
           setCourseLandingFormData(setCourseFormData);
           setCourseCurriculumFormData(response?.courseDetails?.curriculum);
         }

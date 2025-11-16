@@ -33,10 +33,10 @@ const CourseSettings = () => {
           imageFormData,
           setMediaUploadProgressPercentage
         );
-        console.log(res);
+        // console.log(res);
 
         if (res?.success) {
-          console.log("image uplaod repsonse", res);
+          // console.log("image uplaod repsonse", res);
 
           setCourseLandingFormData({
             ...courseLandingFormData,
@@ -52,7 +52,7 @@ const CourseSettings = () => {
   };
 
   const handleReplaceImage = async () => {
-    console.log(courseLandingFormData);
+    // console.log(courseLandingFormData);
 
     const imagePublicId = courseLandingFormData.imagePublicId;
 
@@ -72,7 +72,7 @@ const CourseSettings = () => {
     }
   };
 
-  console.log(courseLandingFormData);
+  // console.log(courseLandingFormData);
 
   return (
     <Card>

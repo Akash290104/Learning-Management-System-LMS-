@@ -25,7 +25,7 @@ const StudentCoursesPage = () => {
         const response = await fetchStudentBoughtCoursesService(
           auth?.user?._id
         );
-        console.log(response);
+        // console.log(response);
 
         if (response?.success) {
           setStudentBoughtCoursesList(response?.courses);

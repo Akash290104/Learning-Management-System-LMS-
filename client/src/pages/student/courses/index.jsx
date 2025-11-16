@@ -83,8 +83,8 @@ const StudentViewCoursesPage = () => {
     if (filters !== null && sort !== null) {
       const fetchAllCoursesOfStudent = async () => {
         try {
-          console.log("Current filters", filters);
-          console.log("Current sort", sort);
+          // console.log("Current filters", filters);
+          // console.log("Current sort", sort);
 
           const query = new URLSearchParams({
             ...filters,
@@ -136,7 +136,7 @@ const StudentViewCoursesPage = () => {
     sessionStorage.setItem("filters", JSON.stringify(copyFilters));
   };
 
-  console.log("filters", filters);
+  // console.log("filters", filters);
 
   return (
     <div className="container mx-auto p-4">

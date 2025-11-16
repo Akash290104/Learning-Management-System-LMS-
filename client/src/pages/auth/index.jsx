@@ -54,8 +54,8 @@ const AuthPage = () => {
     );
   };
 
-  console.log("sign in data", signInFormData);
-  console.log("sign up data", signUpFormData);
+  // console.log("sign in data", signInFormData);
+  // console.log("sign up data", signUpFormData);
 
   return (
     <div className="flex flex-col min-h-screen">

@@ -57,8 +57,8 @@ const CourseCurriculum = () => {
   };
 
   const handleSingleLectureUpload = async (event, currentIndex) => {
-    console.log(event);
-    console.log(event.target.files);
+    // console.log(event);
+    // console.log(event.target.files);
 
     const selectedFile = event.target.files[0];
 
@@ -73,7 +73,7 @@ const CourseCurriculum = () => {
           videoFormData,
           setMediaUploadProgressPercentage
         );
-        console.log(res);
+        // console.log(res);
 
         if (res?.success) {
           let copyCourseCurriculumFormData = [...courseCurriculumFormData];
@@ -98,7 +98,7 @@ const CourseCurriculum = () => {
     }
   };
 
-  console.log(courseCurriculumFormData);
+  // console.log(courseCurriculumFormData);
 
   const isCourseCurriculumFormDataValid = () => {
     return courseCurriculumFormData.every((item) => {
@@ -113,7 +113,7 @@ const CourseCurriculum = () => {
 
   const handleReplaceVideo = async (currentIndex) => {
     let copyCourseCurriculumFormData = [...courseCurriculumFormData];
-    console.log(copyCourseCurriculumFormData[currentIndex]);
+    // console.log(copyCourseCurriculumFormData[currentIndex]);
 
     const currentItem = copyCourseCurriculumFormData[currentIndex];
 
@@ -129,7 +129,7 @@ const CourseCurriculum = () => {
       getCurrentVideoPublicId
     );
 
-    console.log(deleteCurrentMedia);
+    // console.log(deleteCurrentMedia);
 
     if (deleteCurrentMedia?.success) {
       copyCourseCurriculumFormData[currentIndex] = {
@@ -173,7 +173,7 @@ const CourseCurriculum = () => {
         setMediaUploadProgressPercentage
       );
 
-      console.log(response);
+      // console.log(response);
 
       if (response?.success) {
         let copyCourseCurriculumFormData =
@@ -226,7 +226,7 @@ const CourseCurriculum = () => {
     }
   };
 
-  console.log(courseCurriculumFormData);
+  // console.log(courseCurriculumFormData);
 
   return (
     <Card>

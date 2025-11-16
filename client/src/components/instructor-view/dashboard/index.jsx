@@ -58,7 +58,7 @@ const InstructorDashboard = ({ listOfCourses }) => {
 
   useEffect(() => {
     const result = calculateTotalStudentsAndRevenue();
-    console.log(result);
+    // console.log(result);
 
     setConfig([
       {
@@ -77,7 +77,7 @@ const InstructorDashboard = ({ listOfCourses }) => {
     // console.log(config);
   }, [listOfCourses]);
 
-  console.log(config);
+  // console.log(config);
 
   if (listOfCourses.length === 0) {
     return <Skeleton />;
